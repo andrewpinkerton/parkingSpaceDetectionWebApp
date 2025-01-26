@@ -4,11 +4,14 @@ import torchvision.transforms as T
 import torchvision
 import numpy as np
 import pickle
+import matplotlib
+matplotlib.use('Agg') 
 import matplotlib.pyplot as plt
 from scipy.ndimage import binary_dilation
 from matplotlib.patches import Polygon
 from torchvision.models.detection import MaskRCNN_ResNet50_FPN_V2_Weights
 import cv2
+import json
 
 class ParkingSpotDetector:
     def __init__(self):
@@ -180,6 +183,7 @@ class ParkingSpotDetector:
         
         occupied_spot_indices, spot_car_assignments = self.assign_cars_to_spots(parking_spots, car_detections)
         
+        '''
         for i, spot in enumerate(parking_spots):
             if i in occupied_spot_indices:
                 color = 'red'
@@ -198,18 +202,36 @@ class ParkingSpotDetector:
         plt.title("Parking Spot Occupancy Detection")
         plt.axis('off')
         plt.show()
+        '''
         
-        return {
+        results =  {
             'total_spots': len(parking_spots),
             'occupied_spots': len(occupied_spot_indices),
             'vacant_spots': len(parking_spots) - len(occupied_spot_indices),
-            'occupancy_rate': (len(occupied_spot_indices) / len(parking_spots)) * 100
+            'occupancy_rate': (len(occupied_spot_indices) / len(parking_spots)) * 100,
+            'occupied_spot_index': occupied_spot_indices
         }
 
-if __name__ == "__main__":
+        return results
+    
+def main():
     detector = ParkingSpotDetector()
     
-    with open('regions/AAlotWestRegions3.p', 'rb') as f:
+    with open('static/regions/AAlotWestRegions3.p', 'rb') as f:
         parking_spots = pickle.load(f)
     
-    results = detector.visualize_results('images/AA lot West 3.jpg', parking_spots)
+    results = detector.visualize_results('static/images/AA lot West 3.jpg', parking_spots)
+
+    # Convert numpy types to native Python types for JSON serialization
+    json_serializable_results = {
+        'total_spots': int(results['total_spots']),
+        'occupied_spots': int(results['occupied_spots']),
+        'vacant_spots': int(results['vacant_spots']),
+        'occupancy_rate': float(results['occupancy_rate']),
+        'occupied_spot_index': list(map(int, results['occupied_spot_index']))
+    }
+
+    return json_serializable_results
+
+if __name__ == "__main__":
+    print(main())
