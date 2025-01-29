@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form name="myform" action="/process/" method="get">
+        <label for="parkingLot">Select a Parking Lot:</label>
+        <select name="process" id="parkingLot">
+            <option value="AA Lot West 1">AA Lot West 1</option>
+            <option value="AA Lot West 2">AA Lot West 2</option>
+            <option value="AA Lot West 3">AA Lot West 3</option>
+            <option value="AA Lot West 4">AA Lot West 4</option>
+            <option value="AA Lot West 5">AA Lot West 5</option>
+            <option value="AA Lot West 6">AA Lot West 6</option>
+            <option value="AA Lot North 1">AA Lot North 1</option>
+            <option value="AA Lot North 2">AA Lot North 2</option>
+            <option value="AA Lot North 3">AA Lot North 3</option>
+            <option value="AA Lot North 4">AA Lot North 4</option>
+            <option value="AA Lot North 5">AA Lot North 5</option>
+            <option value="AA Lot North 6">AA Lot North 6</option>
+            <option value="CC Lot South">CC Lot South</option>
+            <option value="DD Lot Central">DD Lot Central</option>
+        </select>
+        <input type="submit" value="Submit" id="submit">
+    </form>
+
+    <div>
+        <p>Result: ({{ result.vacant_spots }})</p>
+    </div>
+    
+</body>
+</html>
