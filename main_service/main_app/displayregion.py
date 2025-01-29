@@ -214,13 +214,20 @@ class ParkingSpotDetector:
 
         return results
     
-def main():
+def main(param):
     detector = ParkingSpotDetector()
-    
-    with open('static/regions/AAlotWestRegions3.p', 'rb') as f:
+
+    lotName = param
+
+    regionName = param
+    regionName = param[:-1]
+    regionName = regionName + "Regions"
+    regionName = regionName.replace(' ', "")
+
+    with open('static/regions/' + regionName + '.p', 'rb') as f:
         parking_spots = pickle.load(f)
     
-    results = detector.visualize_results('static/images/AA lot West 3.jpg', parking_spots)
+    results = detector.visualize_results('static/images/'+ lotName +'.jpg', parking_spots)
 
     # Convert numpy types to native Python types for JSON serialization
     json_serializable_results = {
