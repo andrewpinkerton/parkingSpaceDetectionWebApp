@@ -1,5 +1,3 @@
 # Parking Space Detection Web App
 
-This Django web application utilizes my existing parkingSpaceDetection application to detect available parking spaces in images. It provides an interface for users to upload images and receive feedback on detected parking spaces.
-
-Using a 
+The back-end implementation for the project utilized the Django framework to receive and process GET requests served from the later implemented front end mobile app. This service implemented the preexisting parking space detection program. A GET request with a parameterized parking lot would be send to a “/process” endpoint that was either hosted locally or on an AWS EC2 instance. The service would pass the parking lot as a parameter to parking space detection program and would return a JSON object filled with the total spaces, occupied spaces, unoccupied indexes of the spaces, and occupied percentage. This JSON object would be utilized by the front-end client.
