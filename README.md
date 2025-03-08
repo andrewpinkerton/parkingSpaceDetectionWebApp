@@ -10,6 +10,6 @@ The **Parking Space Detection Web App** for the project utilized the Django fram
 
 ### GET Method Interface and JSON Response
 <div style="display: flex; justify-content: space-between;">
-  <img width="200" alt="JSON Response" src="https://github.com/user-attachments/assets/9fed44f9-27a9-41f5-be55-1a0ca7fb42c7">
-  <img width="200" alt="Interface" src="https://github.com/user-attachments/assets/f1916707-c516-49f3-9396-034d75f75b26">
+  <img width="400" alt="JSON Response" src="https://github.com/user-attachments/assets/9fed44f9-27a9-41f5-be55-1a0ca7fb42c7">
+  <img width="400" alt="Interface" src="https://github.com/user-attachments/assets/f1916707-c516-49f3-9396-034d75f75b26">
 </div>
