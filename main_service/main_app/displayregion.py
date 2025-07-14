@@ -27,7 +27,6 @@ class ParkingSpotDetector:
     
     def calculate_box_overlap(self, box1, box2, class1, class2):
         """Calculate IoU between two bounding boxes, but only if one is a car and one is a truck"""
-        # Check if we have one car and one truck
         if not ((class1 == 'car' and class2 == 'truck') or 
                 (class1 == 'truck' and class2 == 'car')):
             return 0.0
@@ -35,7 +34,6 @@ class ParkingSpotDetector:
         x1_1, y1_1, x2_1, y2_1 = box1
         x1_2, y1_2, x2_2, y2_2 = box2
         
-        # Calculate intersection
         x1_i = max(x1_1, x1_2)
         y1_i = max(y1_1, y1_2)
         x2_i = min(x2_1, x2_2)
@@ -46,7 +44,6 @@ class ParkingSpotDetector:
             
         intersection = (x2_i - x1_i) * (y2_i - y1_i)
         
-        # Calculate union
         area1 = (x2_1 - x1_1) * (y2_1 - y1_1)
         area2 = (x2_2 - x1_2) * (y2_2 - y1_2)
         union = area1 + area2 - intersection
@@ -66,7 +63,6 @@ class ParkingSpotDetector:
         scores = predictions[0]['scores']
         boxes = predictions[0]['boxes']
         
-        # Create initial detections list with scores for sorting
         initial_detections = []
         for i in range(len(labels)):
             label = labels[i].item()
@@ -80,16 +76,13 @@ class ParkingSpotDetector:
                     'class': self.vehicle_classes[label]
                 })
         
-        # Sort detections by confidence score
         initial_detections.sort(key=lambda x: x['score'], reverse=True)
         
-        # Filter out overlapping detections
         final_detections = []
         used_boxes = []
-        used_classes = []  # Keep track of classes along with boxes
+        used_classes = []
         
         for detection in initial_detections:
-            # Check if this detection overlaps significantly with any existing detection
             is_overlap = False
             for idx, used_box in enumerate(used_boxes):
                 if self.calculate_box_overlap(detection['box'], used_box, 
@@ -229,7 +222,6 @@ def main(param):
     
     results = detector.visualize_results('static/images/'+ lotName +'.jpg', parking_spots)
 
-    # Convert numpy types to native Python types for JSON serialization
     json_serializable_results = {
         'total_spots': int(results['total_spots']),
         'occupied_spots': int(results['occupied_spots']),
